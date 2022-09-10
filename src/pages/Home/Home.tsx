@@ -1,10 +1,11 @@
-import { Box } from 'components/Box';
+import { Box } from '../../components/Box';
 import { Title, Text } from './Home.styled';
 import { Button, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from 'redux/useAuth';
+import { useAuth } from '../../redux/useAuth';
+import React from 'react';
 
-const Home = () => {
+const Home: React.FC = () => {
   const auth = useAuth();
   return (
     <Container>

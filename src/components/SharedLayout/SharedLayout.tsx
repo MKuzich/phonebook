@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
-import { UserMenu } from 'components/UserMenu/UserMenu';
-import { useAuth } from 'redux/useAuth';
+import React, { Suspense } from 'react';
+import { UserMenu } from '../UserMenu/UserMenu';
+import { useAuth } from '../../redux/useAuth';
 import { Container, Nav, Navbar, Spinner } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { RiContactsBookLine } from 'react-icons/ri';
-import { Box } from 'components/Box';
+import { Box } from '../Box';
 
-export const SharedLayout = () => {
+export const SharedLayout: React.FC = () => {
   const auth = useAuth();
 
   return (

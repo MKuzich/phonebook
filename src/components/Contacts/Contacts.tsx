@@ -1,11 +1,14 @@
 import React from 'react';
 import { List } from './Contacts.styled';
 import { Contact } from '../Contact/Contact';
-import PropTypes from 'prop-types';
-import { useGetContactsQuery } from 'redux/contactsApi';
+import { useGetContactsQuery } from '../../redux/contactsApi';
 import { Spinner } from 'react-bootstrap';
 
-export const Contacts = ({ filter }) => {
+interface IProps {
+  filter: string;
+}
+
+export const Contacts: React.FC<IProps> = ({ filter }) => {
   const { data, isFetching } = useGetContactsQuery();
   return (
     <>
@@ -31,8 +34,4 @@ export const Contacts = ({ filter }) => {
       )}
     </>
   );
-};
-
-Contacts.propTypes = {
-  filter: PropTypes.string,
 };

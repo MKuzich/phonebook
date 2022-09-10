@@ -1,24 +1,29 @@
-import { useLogInMutation } from 'redux/authApi';
-import { setCredentials } from 'redux/authSlice';
+import { useLogInMutation } from '../../redux/authApi';
+import { setCredentials } from '../../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Container } from 'react-bootstrap';
 import { Title, Section, Spin } from './Login.styled';
+import React from 'react';
+import { IState } from '../../types/state';
 
-const Login = () => {
+const Login: React.FC = () => {
   const [logIn, { isLoading }] = useLogInMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.password.value;
+    const email = (e.target as HTMLFormElement).elements.email.value;
+    const password = (e.target as HTMLFormElement).elements.password.value;
     try {
-      const user = await logIn({ email, password }).unwrap();
+      const user: Pick<IState, 'auth'> = await logIn({
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials(user));
       navigate('/contacts');
-      e.target.reset();
+      (e.target as HTMLFormElement).reset();
     } catch (err) {
       console.log(err);
     }

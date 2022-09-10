@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
+import {
+  useGetContactsQuery,
+  useAddContactMutation,
+} from '../../redux/contactsApi';
 import { Button, Form } from 'react-bootstrap';
 import { Spin } from './ContactAddForm.styled';
 
-export const ContactAddForm = () => {
+export const ContactAddForm: React.FC = () => {
   const { data } = useGetContactsQuery();
   const [addContact, { isLoading }] = useAddContactMutation();
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [name, setName] = useState<string>('');
+  const [number, setNumber] = useState<string>('');
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-      data.find(contact =>
+      data?.find(contact =>
         contact.name.toLowerCase().includes(name.toLowerCase())
       )
     ) {
@@ -24,7 +27,7 @@ export const ContactAddForm = () => {
     setNumber('');
   };
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case 'name':
         setName(e.target.value);

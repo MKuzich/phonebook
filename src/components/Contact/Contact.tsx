@@ -1,15 +1,17 @@
 import React from 'react';
 import { Item, Text } from './Contact.styled';
-import PropTypes from 'prop-types';
-import { useRemoveContactMutation } from 'redux/contactsApi';
+import { useRemoveContactMutation } from '../../redux/contactsApi';
 import { Button } from 'react-bootstrap';
 import { Spin } from './Contact.styled';
+import { IContact } from '../../types/contact';
 
-export const Contact = ({ name, number, id }) => {
+export const Contact: React.FC<IContact> = ({ name, number, id }) => {
   const [removeContact, { isLoading }] = useRemoveContactMutation();
 
-  const handleRemoveContact = e => {
-    removeContact(e.target.id);
+  const handleRemoveContact = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ): void => {
+    removeContact((e.target as HTMLButtonElement).id);
   };
   return (
     <Item>
@@ -31,10 +33,4 @@ export const Contact = ({ name, number, id }) => {
       </Button>
     </Item>
   );
-};
-
-Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };

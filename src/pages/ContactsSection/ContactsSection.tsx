@@ -1,14 +1,15 @@
-import { Contacts } from 'components/Contacts/Contacts';
-import { ContactAddForm } from 'components/ContactAddForm/ContactAddForm';
-import { Filter } from 'components/Filter/Filter';
+import { Contacts } from '../../components/Contacts/Contacts';
+import { ContactAddForm } from '../../components/ContactAddForm/ContactAddForm';
+import { Filter } from '../../components/Filter/Filter';
 import { Header, Section } from './ContactsSection.styled';
 import { useState } from 'react';
-import { Box } from 'components/Box';
+import { Box } from '../../components/Box';
 import { Container } from 'react-bootstrap';
+import React from 'react';
 
-const ContactsSection = () => {
+const ContactsSection: React.FC = () => {
   const [filter, setFilter] = useState('');
-  const filterChange = value => {
+  const filterChange = (value: string): void => {
     setFilter(value);
   };
   return (
