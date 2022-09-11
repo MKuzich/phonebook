@@ -1,11 +1,18 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../redux/useAuth';
+import React from 'react';
 
-export default function PublicRoute({
+interface IProps {
+  children: React.ReactNode;
+  redirectPath?: string;
+  restricted: boolean;
+}
+
+const PublicRoute: React.FC<IProps> = ({
   children,
   redirectPath = '/',
   restricted = false,
-}) {
+}: any) => {
   const auth = useAuth();
   const shouldRedirect = auth.user && restricted;
 
@@ -13,4 +20,6 @@ export default function PublicRoute({
     return <Navigate to={redirectPath} />;
   }
   return children;
-}
+};
+
+export default PublicRoute;

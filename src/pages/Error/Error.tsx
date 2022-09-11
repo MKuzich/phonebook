@@ -1,8 +1,8 @@
-import { Button, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import { Box } from '../../components/Box';
 import { Message } from './Error.styled';
 import React from 'react';
+import { ButtonLink } from '../../components/ButtonLink';
 
 const Error: React.FC = () => {
   return (
@@ -11,9 +11,9 @@ const Error: React.FC = () => {
         <Box>
           <Message>Sorry, we cannot find this page!</Message>
           <Box display="flex" justifyContent="center" mt={5}>
-            <Button variant="outline-primary" as={NavLink} to="/">
+            <ButtonLink variant="outline-primary" to="/">
               Back to home
-            </Button>
+            </ButtonLink>
           </Box>
         </Box>
       </Box>

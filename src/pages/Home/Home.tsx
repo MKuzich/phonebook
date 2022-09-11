@@ -1,9 +1,9 @@
 import { Box } from '../../components/Box';
 import { Title, Text } from './Home.styled';
-import { Button, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import { useAuth } from '../../redux/useAuth';
 import React from 'react';
+import { ButtonLink } from '../../components/ButtonLink';
 
 const Home: React.FC = () => {
   const auth = useAuth();
@@ -17,13 +17,11 @@ const Home: React.FC = () => {
               <Text>Please, login or sign up!</Text>
               <Box display="flex">
                 <Box mr={4}>
-                  <Button variant="outline-primary" as={NavLink} to="/register">
+                  <ButtonLink variant="outline-primary" to="/register">
                     Sign Up
-                  </Button>
+                  </ButtonLink>
                 </Box>
-                <Button as={NavLink} to="/login">
-                  Sign In
-                </Button>
+                <ButtonLink to="/login">Sign In</ButtonLink>
               </Box>
             </Box>
           )}

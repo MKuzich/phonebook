@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from './store';
 import { IUser } from '../types/user';
+import { IAuth } from '../types/auth';
 
 export const authApi = createApi({
   reducerPath: 'authfetch',
@@ -22,7 +23,7 @@ export const authApi = createApi({
       query: () => `/users/current`,
       providesTags: ['Auth'],
     }),
-    signUp: builder.mutation<IUser, IUser>({
+    signUp: builder.mutation<IAuth, IUser>({
       query: value => ({
         url: `/users/signup`,
         method: 'POST',
@@ -30,7 +31,13 @@ export const authApi = createApi({
       }),
       invalidatesTags: ['Auth'],
     }),
-    logIn: builder.mutation({
+    logIn: builder.mutation<
+      IAuth,
+      {
+        email: string;
+        password: string;
+      }
+    >({
       query: value => ({
         url: `/users/login`,
         method: 'POST',
@@ -38,7 +45,7 @@ export const authApi = createApi({
       }),
       invalidatesTags: ['Auth'],
     }),
-    logOut: builder.mutation({
+    logOut: builder.mutation<void, void>({
       query: () => ({
         url: `/users/logout`,
         method: 'POST',

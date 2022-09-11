@@ -24,7 +24,7 @@ export const UserMenu: React.FC = () => {
 
   return (
     <>
-      <Navbar.Text>{auth.user.email}</Navbar.Text>
+      <Navbar.Text>{auth?.user?.email}</Navbar.Text>
       <Nav.Link onClick={nahdleOnClick}>Log Out</Nav.Link>
     </>
   );

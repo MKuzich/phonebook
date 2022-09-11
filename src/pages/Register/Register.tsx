@@ -5,6 +5,13 @@ import { setCredentials } from '../../redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { IAuth } from '../../types/auth';
+
+interface FormElements extends HTMLFormControlsCollection {
+  name: HTMLInputElement;
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
 
 const Register: React.FC = () => {
   const [signUp, { isLoading }] = useSignUpMutation();
@@ -13,11 +20,21 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const name = (e.target as HTMLFormElement).elements.name.value;
-    const email = (e.target as HTMLFormElement).elements.email.value;
-    const password = (e.target as HTMLFormElement).elements.password.value;
+    const name: string = (
+      (e.target as HTMLFormElement).elements as FormElements
+    ).name.value;
+    const email: string = (
+      (e.target as HTMLFormElement).elements as FormElements
+    ).email.value;
+    const password: string = (
+      (e.target as HTMLFormElement).elements as FormElements
+    ).password.value;
     try {
-      const user = await signUp({ name, email, password }).unwrap();
+      const user: IAuth = await signUp({
+        name,
+        email,
+        password,
+      }).unwrap();
       dispatch(setCredentials(user));
       navigate('/contacts');
       (e.target as HTMLFormElement).reset();

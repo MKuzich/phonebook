@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form, Container } from 'react-bootstrap';
 import { Title, Section, Spin } from './Login.styled';
 import React from 'react';
-import { IState } from '../../types/state';
+import { IAuth } from '../../types/auth';
+
+interface FormElements extends HTMLFormControlsCollection {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
 
 const Login: React.FC = () => {
   const [logIn, { isLoading }] = useLogInMutation();
@@ -14,10 +19,12 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const email = (e.target as HTMLFormElement).elements.email.value;
-    const password = (e.target as HTMLFormElement).elements.password.value;
+    const email = ((e.target as HTMLFormElement).elements as FormElements).email
+      .value;
+    const password = ((e.target as HTMLFormElement).elements as FormElements)
+      .password.value;
     try {
-      const user: Pick<IState, 'auth'> = await logIn({
+      const user: IAuth = await logIn({
         email,
         password,
       }).unwrap();

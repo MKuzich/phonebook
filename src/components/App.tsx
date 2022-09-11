@@ -24,7 +24,7 @@ export const App: React.FC = () => {
             path="register"
             element={
               <PublicRoute restricted>
-                <Register />
+                <Register />'
               </PublicRoute>
             }
           />
