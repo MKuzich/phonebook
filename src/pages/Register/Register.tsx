@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { IAuth } from '../../types/auth';
+import { toast } from 'react-toastify';
 
 interface FormElements extends HTMLFormControlsCollection {
   name: HTMLInputElement;
@@ -37,9 +38,10 @@ const Register: React.FC = () => {
       }).unwrap();
       dispatch(setCredentials(user));
       navigate('/contacts');
+      toast.success(`You registered succes: ${email}`);
       (e.target as HTMLFormElement).reset();
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      toast.error(`You must fill all fields: ${err.status}`);
     }
   };
   return (

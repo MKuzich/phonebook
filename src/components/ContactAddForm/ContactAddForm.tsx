@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {
   useGetContactsQuery,
   useAddContactMutation,
 } from '../../redux/contactsApi';
 import { Button, Form } from 'react-bootstrap';
 import { Spin } from './ContactAddForm.styled';
+import { toast } from 'react-toastify';
 
 export const ContactAddForm: React.FC = () => {
   const { data } = useGetContactsQuery();
@@ -13,16 +13,17 @@ export const ContactAddForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [number, setNumber] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): any => {
     e.preventDefault();
     if (
       data?.find(contact =>
         contact.name.toLowerCase().includes(name.toLowerCase())
       )
     ) {
-      return Notify.warning(`${name} is already in contacts`);
+      return toast.warn(`${name} is already in contacts`);
     }
     addContact({ name, number });
+    toast.success(`${name} is added to your contacts!`);
     setName('');
     setNumber('');
   };
@@ -36,7 +37,7 @@ export const ContactAddForm: React.FC = () => {
         setNumber(e.target.value);
         break;
       default:
-        console.log('Something went wrong!');
+        toast.error('Something went wrong!');
     }
   };
 

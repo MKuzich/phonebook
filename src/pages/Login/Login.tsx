@@ -6,6 +6,7 @@ import { Button, Form, Container } from 'react-bootstrap';
 import { Title, Section, Spin } from './Login.styled';
 import React from 'react';
 import { IAuth } from '../../types/auth';
+import { toast } from 'react-toastify';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -30,9 +31,10 @@ const Login: React.FC = () => {
       }).unwrap();
       dispatch(setCredentials(user));
       navigate('/contacts');
+      toast.success(`You logged succes: ${email}`);
       (e.target as HTMLFormElement).reset();
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      toast.error(`Email or password is wrong, try again: ${err.status}`);
     }
   };
 

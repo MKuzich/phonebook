@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 export const UserMenu: React.FC = () => {
   const [logOut] = useLogOutMutation();
@@ -17,8 +18,9 @@ export const UserMenu: React.FC = () => {
       await logOut();
       dispatch(setCredentials({ user: null, token: null }));
       navigate('/login');
-    } catch (err) {
-      console.log(err);
+      toast.success(`You unlogged succes!`);
+    } catch (err: any) {
+      toast.error(`Something went wrong: ${err.status}`);
     }
   };
 
