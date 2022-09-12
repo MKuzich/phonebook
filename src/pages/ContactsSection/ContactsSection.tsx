@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap';
 import React from 'react';
 
 const ContactsSection: React.FC = () => {
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState<string>('');
   const filterChange = (value: string): void => {
     setFilter(value);
   };
